@@ -1,15 +1,17 @@
 <template>
   <v-container grid-list-sm>
     <v-file-input
-      v-model="itemsInForm"
+      v-model="itemsInForm" 
       accept="image/*, text/xml"
       color="deep-purple accent-4"
       counter
       multiple
       label="Загрузка файлов"
       placeholder="Выберете файлы викторины"
-      prepend-icon="mdi-paperclip"
+      prepend-inner-icon="mdi-paperclip"
+      prepend-icon=""
       outlined
+      clearable
       :show-size="1000"
     >
       <template v-slot:selection="{ index, text }">
@@ -22,18 +24,18 @@
     </v-file-input>
     <v-btn @click="checkFiles">Добавить выбраные файлы</v-btn>
     <v-list>
-      <v-list-item-group>
-        <v-list-item v-for="(fileItem, k) in images" :key="k">
-          <v-list-item-content>
+      <v-row class="my-1">
+        <v-col v-for="(fileItem, k) in images" :key="k" cols="3" align="center">
+          <!-- <v-list-item-content class="d-flex flex-no-wrap justify-space-between"> -->
             <v-card>
-              <v-img max-width="150px" contain :src="fileItem.imageURL"></v-img>
-              <v-chip close>{{fileItem.imageName}}</v-chip>
+              <v-img contain height="80px" :src="fileItem.imageURL"></v-img>
+              <v-chip label small class="ma-2">{{fileItem.imageName}}<v-icon right small dark color="green">mdi-checkbox-marked-circle</v-icon></v-chip>
             </v-card>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
+          <!-- </v-list-item-content> -->
+        </v-col>
+      </v-row>
     </v-list>
-    <v-btn @click="prepareQuiz">Продолжить</v-btn>
+    <v-btn block color="primary" @click="prepareQuiz">Продолжить</v-btn>
   </v-container>
 </template>
 <script>
