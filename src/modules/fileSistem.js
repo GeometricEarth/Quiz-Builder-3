@@ -6,20 +6,23 @@ import JSZip from 'jszip'
 import mime from 'mime/lite'
 
 import parser from './xmlparser'
+import iconv from 'iconv-lite'
 
 EventBus.on('saveProject', saveProject);
 
-function saveProject() {
+function saveProject(quizName) {
     let questions = store.getters.questions;
-    let quizName = store.getters.quizName;
+    // let quizName = store.getters.quizName;
     let zip = new JSZip();
     questions.forEach(questionData => {
         questionData.imagePath = createImagePath(questionData.image, questionData.id, quizName);
         let fileName = questionData.imagePath.split('\\')[2]
         zip.file(fileName, dataURLtoBlob(questionData.image));
     });
-    const xml = createQuize(questions, quizName);
-    zip.file('quiz.xml', xml)
+    let xml = createQuize(questions, quizName);
+    let fileNameXML = quizName + '.xml';
+    xml = iconv.encode(xml, 'win1251');
+    zip.file(fileNameXML, xml);
     zip.generateAsync({ type: "blob" })
         .then(blob => {
             let blobURL = window.URL.createObjectURL(blob);
@@ -67,10 +70,9 @@ function createImagePath(dataURL, id, quizName) {
 function readAsTextXML(file) {
     let reader = new FileReader();
     reader.onload = () => {
-        let quizData = parser.parseXML(reader.result);
-        // console.log(quizData);
-        quizData.questions.forEach(question => {
-            // console.log(readAsDataURL(question.image))
+        let quizeData = parser.parseXML(reader.result);
+        console.log(quizeData);
+        quizeData.questions.forEach(question => {
             question.image = question.image.split('\\')[2]
             store.commit('ADD_QUESTION', question);
         });
