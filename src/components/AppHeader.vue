@@ -7,7 +7,7 @@
       <v-btn text fab @click="goHome">
         <v-icon>mdi-home</v-icon>
       </v-btn>
-      <v-btn text fab @click="save">
+      <v-btn text fab to='/save-project'>
         <v-icon>mdi-content-save</v-icon>
       </v-btn>
     </v-toolbar-items>

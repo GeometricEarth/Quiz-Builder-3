@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import OpenQuiz from '../views/OpenProject.vue'
+import SaveProject from '../views/SaveProject.vue'
 import Editor from '../views/Editor.vue'
 
 Vue.use(VueRouter)
@@ -28,6 +29,9 @@ const routes = [
   },
   {
     path: '/open_project', name: 'open_project', component: OpenQuiz
+  },
+  {
+    path: '/save-project', name: 'save-project', component: SaveProject
   }
 ]
 

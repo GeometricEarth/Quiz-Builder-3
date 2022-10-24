@@ -27,6 +27,9 @@ export default new Vuex.Store({
         }
       })
     },
+    CHANGE_quizName(state, payload) {
+      state.quizName = payload
+    },
     DELETE_QUESTION(state, id) {
       state.questions.splice(id, 1)
     },
