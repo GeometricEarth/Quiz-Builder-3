@@ -13,9 +13,17 @@
             popout
           >
             <v-expansion-panel-header>
-              <v-row class="justify-center pr-6">{{question.questionText}}</v-row>
+              <v-row>
+                <v-col clos="1">
+                <div>
+                  {{question.id+1}}
+                </div>
+                </v-col>
+                <v-divider vertical></v-divider>
+                <v-col cols="11"> <div>{{question.questionText}}</div></v-col>
+              </v-row>
             </v-expansion-panel-header>
-            <v-expansion-panel-content>
+            <v-expansion-panel-content class="mt-3">
               <v-row class="grey lighten-3">
                 <v-col cols="12" class="my-auto" style="position: relative; font-size:20px;">
                   <div class="hidden-sm-and-up">
@@ -55,7 +63,7 @@
                     <v-list-item-group v-model="question.trueAnswer" color="primary">
                       <v-list-item v-for="(answer, k) in question.answers" :key="k" class="px-2">
                         <v-list-item-icon class="mr-2 my-auto">
-                          <v-icon v-if="question.trueAnswer==k" color="primary">mdi-checkbox-marked-circle</v-icon>
+                          <v-icon v-if="question.trueAnswer==(k)" color="primary">mdi-checkbox-marked-circle</v-icon>
                           <v-icon v-else>mdi-checkbox-blank-circle-outline</v-icon>
                         </v-list-item-icon>
                         <v-list-item-content>
