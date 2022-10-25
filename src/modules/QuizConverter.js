@@ -9,7 +9,7 @@ function createQuize(questions, quizName) {
     for (let i = 0; i < questions.length; i++) {
         obj.ele('question',
             {
-                'answer': questions[i].trueAnswer,
+                'answer': questions[i].trueAnswer+1,
                 'name': 'Question' + questions[i].id,
                 'timeout': questions[i].timeout || 20,
             })

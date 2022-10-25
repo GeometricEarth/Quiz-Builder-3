@@ -25,7 +25,7 @@ class ParseXmlToQuiz {
                 newQestion.image = question.picture[0];
                 newQestion.questionText = question.text[0];
                 newQestion.answers = question.answer;
-                newQestion.id = id++;
+                newQestion.id = id+1;
                 return newQestion
             })
             return {questions, quizName};
