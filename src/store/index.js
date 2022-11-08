@@ -31,7 +31,10 @@ export default new Vuex.Store({
       state.quizName = payload
     },
     DELETE_QUESTION(state, id) {
-      state.questions.splice(id, 1)
+      state.questions.splice(id, 1);
+      state.questions.forEach((item, i) => {
+        item.id = i;
+      });
     },
     RESET_STORE(state) {
       state.questions = [];
