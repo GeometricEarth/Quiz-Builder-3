@@ -1,8 +1,8 @@
 <template>
   <v-container grid-list-sm>
     <v-text-field v-model="quizName" label="Введите название викторины"></v-text-field>
-    <v-btn @click.stop="save" outlined>Сохранить</v-btn>
-    <v-btn @ckik="goBack" outlined>Назад</v-btn>
+    <v-btn class="mr-2" @click.stop="save" outlined>Сохранить</v-btn>
+    <v-btn @click.stop="goBack" outlined>Назад</v-btn>
   </v-container>
 </template>
 
@@ -13,7 +13,7 @@ export default {
       quizName: ""
     };
   },
-  methods: {
+   methods: {
     save() {
       this.$bus.emit("saveProject", this.$data.quizName);
     },

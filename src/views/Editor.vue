@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <v-content fill-height class="justify-center">
+  
+    <v-container fill-height class="justify-center mt-3">
       <v-row justify="center">
         <v-col xs="12" sm="10" md="8" lg="6">
           <question-list @showOverlay="editQuestion"></question-list>
-          <v-expansion-panels v-model="editorPanelState">
+          <v-expansion-panels class="mt-3" v-model="editorPanelState">
             <v-expansion-panel expand focusable>
               <v-expansion-panel-header>
                 <template v-slot:default="{ open }">
                   <v-row no-gutters>
                     <v-col class="d-flex align-center justify-center">
-                      <h2>Редактировать вопрос</h2>
+                      <h2>Добавить вопрос</h2>
                     </v-col>
                   </v-row>
                 </template>
@@ -20,18 +20,20 @@
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
-          <v-dialog v-model="edeting" @click:outside="mutationIsDone" scrollable max-width="860px" width="80%">
-            <v-row justify="center">
+          <v-dialog v-model="edeting" @click:outside="mutationIsDone" max-width="650px" >
+            <v-row no-gutters justify="center">
               <v-col cols="12">
                 <v-card>
-                  <v-card-title>Добавить вопрос</v-card-title>
-                  <v-card-text height="90%">
+                  <v-card-title>{{edeting ? 'Редактировать вопрос':'Добавить вопрос'}}</v-card-title>
+                  <v-card-text >
+                    <!-- <v-virtual-scroll height="800" item-height="750"> -->
                     <question-form
                       class="justify-center"
                       :question="editableQuestion"
                       :isEdeting="edeting"
                       @mutationIsDone="mutationIsDone"
                     ></question-form>
+                  <!-- </v-virtual-scroll> -->
                   </v-card-text>
                 </v-card>
               </v-col>
@@ -39,8 +41,8 @@
           </v-dialog>
         </v-col>
       </v-row>
-    </v-content>
-  </div>
+    </v-container>
+  
 </template>
 
 <script>
@@ -53,27 +55,13 @@ export default {
     return {
       edeting: false,
       editableQuestion: {},
-      editorPanelState: 0
+      editorPanelState: 0,
     };
   },
   components: {
     QuestionList,
     QuestionForm
   },
-  // computed: {
-  //   editableQuestion: {
-  //     get(id) {
-  //       const question = this.$store.getters.getQuestionByID(id);
-  //       // this.editableQuestion = JSON.parse(JSON.stringify(question));
-  //       // this.editableQuestion = question;
-  //       // this.edeting = true;
-  //       return question;
-  //     },
-  //     set(value) {
-  //       console.log(value);
-  //     }
-  //   }
-  // },
   methods: {
     editQuestion(id) {
       this.editableQuestion = this.$store.getters.getQuestionByID(id);
@@ -82,7 +70,7 @@ export default {
     mutationIsDone() {
       this.edeting = false;
       // this.editableQuestion = {}
-    }
+    },
   }
 };
 </script>

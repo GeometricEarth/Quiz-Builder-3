@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-main>
     <v-row class="justify-center">
       <v-col cols="12">
         <v-expansion-panels>
@@ -14,7 +14,7 @@
           >
             <v-expansion-panel-header>
               <v-row>
-                <v-col clos="1">
+                <v-col clos="1" class="pl-0 d-flex justify-center align-center">
                 <div>
                   {{question.id+1}}
                 </div>
@@ -87,7 +87,7 @@
         </v-expansion-panels>
       </v-col>
     </v-row>
-  </v-content>
+  </v-main>
 </template>
 <script>
 export default {
