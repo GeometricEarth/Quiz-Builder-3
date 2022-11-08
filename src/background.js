@@ -86,4 +86,4 @@ if (isDevelopment) {
       app.quit()
     })
   }
-}
+}else {win.removeMenu()};
