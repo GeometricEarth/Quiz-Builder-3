@@ -25,7 +25,7 @@ const routes = [
   //   path: '/open', component: OpenQuiz
   // },
   {
-    path: '/editor', component: Editor 
+    path: '/editor', name: 'editor', component: Editor,
   },
   {
     path: '/open_project', name: 'open_project', component: OpenQuiz
@@ -36,9 +36,27 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: process.env.IS_ELECTRON ? 'hash' : 'history',
   base: process.env.BASE_URL,
   routes
 })
+
+const onError = (e) => {
+  // avoid NavigationDuplicated
+  if (e.name !== 'NavigationDuplicated') throw e
+}
+
+// keep original function
+const _push = router.__proto__.push
+// then override it
+router.__proto__.push = function push (...args) {
+  try {
+    const op = _push.call(this, ...args)
+    if (op instanceof Promise) op.catch(onError)
+    return op
+  } catch (e) {   
+    onError(e)
+  }
+}
 
 export default router
