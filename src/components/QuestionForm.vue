@@ -4,22 +4,26 @@
     <v-col cols="12">
       <v-form ref="addQuestion">
         <v-container>
-          <v-row no-gutters justify="center">
-            <v-col v-if="quiz.image" cols="12" class="my-auto grey lighten-3 py-4">
-              <v-img :src="quiz.image" max-width="280" contain class="mx-auto"></v-img>
+          <v-row justify="center">
+            <v-col v-if="quiz.image" cols="12" class="my-auto grey lighten-3 py-2">
+              <v-img :src="quiz.image" max-width="280" max-height="150" contain class="mx-auto"></v-img>
             </v-col>
             <v-col>
               <v-slider
                 v-model="quiz.timeout"
+                label="Таймер"
                 track-color="grey"
                 always-dirty
-                max="25"
+                max="60"
                 thumb-label="always"
+                class="pt-2"
+                dense
+                hide-details
               >
-                <template v-slot:prepend>
+                <template v-slot:label>
+                  <label>Таймер: </label>
                   <v-icon @click="decrement">mdi-minus</v-icon>
                 </template>
-
                 <template v-slot:append>
                   <v-icon @click="increment">mdi-plus</v-icon>
                 </template>
@@ -42,6 +46,7 @@
                 rows="1"
                 auto-grow
                 lazy-validation
+                dense
               ></v-textarea>
               <v-textarea
                 v-for="(answer, id) in 4"
@@ -49,11 +54,12 @@
                 :key="`answer${id}`"
                 :name="`answer${id}`"
                 :label="`Ответ${id+1}`"
-                :counter="60"
+                :counter="80"
                 outlined
                 rows="1"
                 auto-grow
                 lazy-validation
+                dense
               >
                 <template v-slot:prepend>
                   <v-icon
@@ -96,7 +102,7 @@ export default {
           "Длинна вопроса должнаа быть менее 120 символов"
       ]
       // answerLenght: [
-      //   v =>v && v.length <= 120 || "Длинна ответа должнаа быть менее 60 символов"
+      //   v =>v && v.length <= 120 || "Длинна ответа должнаа быть менее 80 символов"
       // ]
     };
   },
@@ -104,7 +110,6 @@ export default {
     question: {
       type: Object,
       default: () => {
-        console.log("return default obj");
         return {
           image: "",
           questionText: "",
@@ -133,13 +138,14 @@ export default {
     add() {
       if (!this.quiz.image) this.quiz.image = defultImage;
       this.$store.commit("ADD_QUESTION", this.quiz);
-      this.quiz = {
-        image: null,
-        questionText: null,
-        answers: [],
-        trueAnswer: -1
-      };
-      this.$refs.addQuestion.reset();
+      this.clearForm();
+      // this.quiz = {
+      //   image: null,
+      //   questionText: null,
+      //   answers: [],
+      //   trueAnswer: -1
+      // };
+      
     },
     mutateQuestion() {
       this.$store.commit("CHANGE_QUESTION", this.quiz);
@@ -154,7 +160,8 @@ export default {
         trueAnswer: -1,
         timeout: 15
       };
-      this.$refs.addQuestion.reset();
+      this.$refs.addQuestion.resetValidation();
+      // this.$refs.addQuestion.reset();
     },
     addImage(file) {
       if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
