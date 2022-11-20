@@ -2,7 +2,7 @@
   
     <v-container fill-height class="justify-center mt-3">
       <v-row justify="center">
-        <v-col xs="12" sm="10" md="8" lg="6">
+        <v-col xs="12" sm="10" md="8" lg="8">
           <question-list @showOverlay="editQuestion"></question-list>
           <v-expansion-panels class="mt-3" v-model="editorPanelState">
             <v-expansion-panel expand focusable>
