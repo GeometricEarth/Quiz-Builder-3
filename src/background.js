@@ -27,6 +27,7 @@ function createWindow () {
   } else {
     createProtocol('app')
     // Load the index.html when not in development
+    win.removeMenu();
     win.loadURL('app://./index.html')
   }
 
@@ -86,4 +87,4 @@ if (isDevelopment) {
       app.quit()
     })
   }
-}else {win.removeMenu()};
+}
