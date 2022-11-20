@@ -89,7 +89,7 @@
 <script>
 /* eslint-disable no-console */
 // const defultImage = require("");
-import defultImage from '@/assets/defultImage.js'
+import defaultImage from '@/assets/defaultImage.js'
 export default {
   data() {
     return {
@@ -136,7 +136,7 @@ export default {
   },
   methods: {
     add() {
-      if (!this.quiz.image) this.quiz.image = defultImage;
+      if (!this.quiz.image) this.quiz.image = defaultImage;
       this.$store.commit("ADD_QUESTION", this.quiz);
       this.clearForm();
       // this.quiz = {
