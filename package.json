@@ -14,7 +14,7 @@
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.3.2",
-    "jszip": "^3.2.2",
+    "jszip": "^3.8.0",
     "mime": "^2.4.4",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3",
